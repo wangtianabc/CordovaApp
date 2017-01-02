@@ -1,27 +1,57 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!--
         必要时在以下 META 标记中自定义内容安全策略。将 "unsafe-inline" 添加到 default-src 以启动内联 JavaScript。
       有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: http://api.openweathermap.org https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>CordovaApp</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">正在连接到设备</p>
-                <p class="event received">设备已就绪</p>
+        <div data-role="page" id="weather-page">
+
+            <div data-role="header" class="header">
+                <h1 id="app-title">Weather App</h1>
+                <a href="/" class="ui-btn ui-btn-left ui-btn-corner-all ui-icon-home ui-btn-icon-notext" rel="external">Home</a>
             </div>
+
+            <div role="main" class="ui-content">
+                <form>
+                    <label for="zip-code">Type your zip code:</label>
+                    <input id="zip-code-input" name="zip-code" placeholder="eg. 98001" required />
+                    <button id="get-weather-btn" data-role="button" data-icon="search">Find Weather</button>
+                </form>
+
+                <ul id="weather-data" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow not-displayed">
+                    <li data-role="list-divider" id="title" class="ui-li-divider ui-bar-a"></li>
+                    <li><span id="summary"><span id="temperature"></span> F <img src="" /></span></li>
+                    <li>Wind: <span id="wind"></span> knots</li>
+                    <li>Humidity: <span id="humidity"></span> %</li>
+                    <li>Visibility: <span id="visibility"></span></li>
+                    <li>Sunrise: <span id="sunrise"></span></li>
+                    <li>Sunset: <span id="sunset"></span></li>
+                </ul>
+
+                <div id="error-msg" class="not-displayed">
+                </div>
+
+            </div>
+
+            <footer data-role="footer" data-position="fixed">
+                <h4>Visual Studio Tools for Cordova Demo</h4>
+            </footer>
+
         </div>
+        <script type="text/javascript" src="scripts/jquery-3.1.1.js"></script>
+        <script type="text/javascript" src="scripts/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/index.js"></script>
