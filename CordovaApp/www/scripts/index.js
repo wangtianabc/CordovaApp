@@ -6,7 +6,7 @@
     "use strict";
 
     $('#get-weather-btn').click(getWeatherWithZipCode);
-
+    
     function onPause() {
         // TODO: 此应用程序已挂起。在此处保存应用程序状态。
     };
