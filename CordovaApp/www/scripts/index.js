@@ -5,8 +5,27 @@
 (function () {
     "use strict";
 
-    $('#get-weather-btn').click(getWeatherWithZipCode);
-    
+    function onDeviceReady() {
+        // Handle the Cordova pause and resume events
+        document.addEventListener('pause', onPause.bind(this), false);
+        document.addEventListener('resume', onResume.bind(this), false);
+
+        $('#get-weather-btn').click(getWeatherWithZipCode);
+        
+        getWeatherWithGeoLocation();
+
+    };
+    window.onload = function () {
+        $.getJSON("json/loadContent.json", function (data) {
+            var html = template('contentlist', data)
+            $('#datalist').empty();
+            document.getElementById('datalist').innerHTML = html;
+            //$("#home").page();
+            $('#datalist').listview('refresh');
+        }).fail(function (jqXHR) {
+
+        });
+    }
     function onPause() {
         // TODO: 此应用程序已挂起。在此处保存应用程序状态。
     };
@@ -63,4 +82,41 @@
         }
     }
 
+    function getWeatherWithGeoLocation() {
+
+        navigator.geolocation.getCurrentPosition(onGetLocationSuccess, onGetLocationError,
+          { enableHighAccuracy: true });
+
+        $('#error-msg').show();
+        $('#error-msg').text('Determining your current location ...');
+
+        $('#get-weather-btn').prop('disabled', true);
+    }
+    function onGetLocationSuccess(position) {
+
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        var queryString =
+          'http://api.openweathermap.org/data/2.5/weather?lat='
+            + latitude + '&lon=' + longitude + '&appid=' + OpenWeatherAppKey + '&units=imperial';
+
+        $('#get-weather-btn').prop('disabled', false);
+
+        $.getJSON(queryString, function (results) {
+
+            showWeatherData(results);
+
+        }).fail(function (jqXHR) {
+            $('#error-msg').show();
+            $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
+        });
+
+    }
+    function onGetLocationError(error) {
+
+        $('#error-msg').text('Error getting location');
+        $('#get-weather-btn').prop('disabled', false);
+    }
+    
 } )();

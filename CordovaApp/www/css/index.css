@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-.not-displayed {
+﻿.not-displayed {
     display: none;
 }
 
@@ -32,4 +31,8 @@ form {
     text-align: center;
     margin-top:  50%;
     font-weight: bold;    
+}
+
+img {
+    padding: 2px 2px 2px 2px;
 }
