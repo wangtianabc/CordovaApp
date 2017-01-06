@@ -3,18 +3,19 @@
       "date": "2017-01-05",
       "content": [
         {
+          "indexhtml": "index.html",
           "imgurl": "images/cordova.png",
           "time": "12:00",
           "title": "朴槿惠下台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         },
         {
           "imgurl": "images/cordova.png",
           "time": "12:30",
           "title": "奥巴马任期已到",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     },
@@ -26,7 +27,7 @@
           "time": "13:00",
           "title": "特朗普上台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     },
@@ -38,7 +39,7 @@
           "time": "13:00",
           "title": "特朗普上台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     },
@@ -50,7 +51,7 @@
           "time": "13:00",
           "title": "特朗普上台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     },
@@ -62,7 +63,7 @@
           "time": "13:00",
           "title": "特朗普上台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     },
@@ -74,7 +75,7 @@
           "time": "13:00",
           "title": "特朗普上台",
           "desc": "韩国人民举国欢庆，奔走相告",
-          "contenttext": "金三胖对韩国标识祝贺！"
+          "contenttext": "金三胖对韩国表示祝贺！"
         }
       ]
     }

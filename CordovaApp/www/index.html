@@ -1,66 +1,86 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <!--
-        必要时在以下 META 标记中自定义内容安全策略。将 "unsafe-inline" 添加到 default-src 以启动内联 JavaScript。
-        有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=617521
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: http://api.openweathermap.org https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
-        <link rel="stylesheet" href="css/index.css">
-        <title>CordovaApp</title>
-    </head>
-    <body>
-        <div data-role="page" id="weather-page">
-
-            <div data-role="header" class="header">
-                <h1 id="app-title">Weather App</h1>
-                <a href="home.html" class="ui-btn ui-btn-left ui-btn-corner-all ui-icon-home ui-btn-icon-notext" rel="external"></a>
-            </div>
-
-            <div role="main" class="ui-content">
-                <form>
-                    <label for="zip-code">Type your zip code:</label>
-                    <input id="zip-code-input" name="zip-code" placeholder="eg. 98001" required />
-                    <button id="get-weather-btn" data-role="button" data-icon="search">Find Weather</button>
-                </form>
-
-                <ul id="weather-data" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow not-displayed">
-                    <li data-role="list-divider" id="title" class="ui-li-divider ui-bar-a"></li>
-                    <li><span id="summary"><span id="temperature"></span> F <img src="" /></span></li>
-                    <li>Wind: <span id="wind"></span> knots</li>
-                    <li>Humidity: <span id="humidity"></span> %</li>
-                    <li>Visibility: <span id="visibility"></span></li>
-                    <li>Sunrise: <span id="sunrise"></span></li>
-                    <li>Sunset: <span id="sunset"></span></li>
-                </ul>
-
-                <div id="error-msg" class="not-displayed">
-                </div>
-
-            </div>
-
-            <div data-role="footer" data-position="fixed">
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="home.html" data-icon="info" rel="external">消息</a></li>
-                        <li><a href="#" data-icon="home">主页</a></li>
-                        <li><a href="#" data-icon="eye">发现</a></li>
-                        <li><a href="#" data-icon="user">用户</a></li>
-                    </ul>
-                </div>
-            </div>
-
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--
+    必要时在以下 META 标记中自定义内容安全策略。将 "unsafe-inline" 添加到 default-src 以启动内联 JavaScript。
+    有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: http://api.openweathermap.org https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/scrollbar.css">
+    <title>CordovaApp</title>
+</head>
+<body>
+    <!--主页-->
+    <div data-role="page" id="home">
+        <div data-role="header" data-position="fixed">
+            <h1>CordovaApp</h1>
+            <a href="#" class="ui-btn ui-btn-right ui-btn-corner-all ui-icon-gear ui-btn-icon-notext" data-transition="slideup"></a>
         </div>
+        <div data-role="content" data-fullscreen="true">
+            <div id="wrapper">
+                <div id="scroller">
+                    <div id="pullDown">
+                        <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+                    </div>
+                    <div id="contentlistc">
+                        <ul data-role="listview" data-inset="true" id="datalist"></ul>
+                    </div>
+                    <div id="pullUp">
+                        <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="index.html" data-icon="info">消息</a></li>
+                    <li><a href="#" data-icon="home">主页</a></li>
+                    <li><a href="#" data-icon="eye">发现</a></li>
+                    <li><a href="#" data-icon="user">用户</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>    
 
-        <script src="scripts/jquery-1.12.4.min.js"></script>
-        <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
-        <script src="cordova.js"></script>
-        <script src="scripts/platformOverrides.js"></script>
-        <script src="scripts/index.js"></script>
-    </body>
+    <script src="scripts/jquery-1.12.4.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/template-debug.js"></script>
+    <script src="scripts/iscroll.js"></script>
+    <script src="scripts/iscroll-probe.js"></script>
+
+    <!--列表实时注入模板-->
+    <script id="contentlist" type="text/html">
+        {{each list as value i}}
+        <li data-role="list-divider">{{value.date}}<span class="ui-li-count">{{value.content.length}}</span></li>
+            {{each value.content as value1 as j}}
+            <li>
+                <a href={{value1.indexhtml}} rel="external">
+                    <img src={{value1.imgurl}} class="ui-corner-all">
+                    <h2>{{value1.title}}</h2>
+                    <p><strong>{{value1.desc}}</strong></p>
+                    <p>{{value1.contenttext}}</p>
+                    <p class="ui-li-aside"><strong>{{value1.time}}</strong>PM</p>
+
+                </a>
+            </li>
+            {{/each}}
+        {{/each}}
+    </script>
+
+    <!--页面内容数据注入-->
+    <script id="contentdesc" type="text/html">
+
+    </script>
+
+</body>
 </html>

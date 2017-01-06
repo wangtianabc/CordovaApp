@@ -15,17 +15,8 @@
         getWeatherWithGeoLocation();
 
     };
-    window.onload = function () {
-        $.getJSON("json/loadContent.json", function (data) {
-            var html = template('contentlist', data)
-            $('#datalist').empty();
-            document.getElementById('datalist').innerHTML = html;
-            //$("#home").page();
-            $('#datalist').listview('refresh');
-        }).fail(function (jqXHR) {
-
-        });
-    }
+   
+    
     function onPause() {
         // TODO: 此应用程序已挂起。在此处保存应用程序状态。
     };
@@ -33,90 +24,121 @@
     function onResume() {
         // TODO: 此应用程序已重新激活。在此处还原应用程序状态。
     };
-    
-    var OpenWeatherAppKey = "5e9e3786feae463e933b33db2c62f7f7";
 
-    function getWeatherWithZipCode() {
+    var myScroll, favScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset;
+    var pullDownFlag, pullUpFlag;
+    $(document).on("ready", function () {
+        $("#pullDown").hide();
+        $("#pullUp").hide();
 
-        var zipcode = $('#zip-code-input').val();
-
-        var queryString =
-            'http://api.openweathermap.org/data/2.5/weather?zip='
-            + zipcode + ',us&appid=' + OpenWeatherAppKey + '&units=imperial';
-
-        $.getJSON(queryString, function (results) {
-
-            showWeatherData(results);
-
-        }).fail(function (jqXHR) {
-            $('#error-msg').show();
-            $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
+        loadData();
+    });
+    /*初始化滚动*/
+    function initScroll() {
+        pullDownEl = document.getElementById('pullDown');
+        pullDownOffset = pullDownEl.offsetHeight;
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+        pullDownFlag = 0;
+        pullUpFlag = 0;
+        myScroll = new IScroll('#wrapper', {
+            scrollbars: false,      
+            useTransition: false,
+            probeType: 3,
+            mouseWheel: true,//鼠标滑轮开启
+            fadeScrollbars: true,//滚动条渐隐
+            interactiveScrollbars: true,//滚动条可拖动
+            shrinkScrollbars: 'scale', // 当滚动边界之外的滚动条是由少量的收缩
+            useTransform: true,//CSS转化
+            useTransition: true,//CSS过渡
+            bounce: true,//反弹
+            freeScroll: false,//只能在一个方向上滑动
+            startX: 0,
+            startY: 0,
         });
 
-        return false;
+        myScroll.on('scroll', positionJudge);
+        myScroll.on("scrollEnd", action);
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+            capture: false,
+            passive: false
+        } : false);
     }
+    function positionJudge() {
+        if (this.y > 40) {    //判断下拉
+            $("#pullDown").show();
+            $("#pullDown").text = "放开刷新页面";
+            pullDownFlag = 1;
 
-    function showWeatherData(results) {
-
-        if (results.weather.length) {
-
-            $('#error-msg').hide();
-            $('#weather-data').show();
-
-            $('#title').text(results.name);
-            $('#temperature').text(results.main.temp);
-            $('#wind').text(results.wind.speed);
-            $('#humidity').text(results.main.humidity);
-            $('#visibility').text(results.weather[0].main);
-
-            var sunriseDate = new Date(results.sys.sunrise * 1000);
-            $('#sunrise').text(sunriseDate.toLocaleTimeString());
-
-            var sunsetDate = new Date(results.sys.sunset * 1000);
-            $('#sunset').text(sunsetDate.toLocaleTimeString());
-
-        } else {
-            $('#weather-data').hide();
-            $('#error-msg').show();
-            $('#error-msg').text("Error retrieving data. ");
+        } else if (this.y < (this.maxScrollY - 40)) {   //判断上拉
+            $("#pullUp").show();
+            $("#pullUp").text = "放开刷新页面";
+            pullUpFlag = 1;
         }
     }
 
-    function getWeatherWithGeoLocation() {
-
-        navigator.geolocation.getCurrentPosition(onGetLocationSuccess, onGetLocationError,
-          { enableHighAccuracy: true });
-
-        $('#error-msg').show();
-        $('#error-msg').text('Determining your current location ...');
-
-        $('#get-weather-btn').prop('disabled', true);
+    function action() {
+        if (pullDownFlag == 1) {
+            pullDownAction();
+            pullDownFlag = 0;
+            $("#pullDown").hide();
+        } else if (pullUpFlag == 1) {
+            pullUpAction();
+            pullUpFlag = 0;
+            $("#pullUp").hide();
+        }
     }
-    function onGetLocationSuccess(position) {
 
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+    /**
+     * scroll to refresh下拉刷新 
+     * myScroll.refresh();// need to call after load数据加载完成后，调用界面更新方法
+     */
+    function pullDownAction() {
+        console.log("pulldown");
+    }
 
-        var queryString =
-          'http://api.openweathermap.org/data/2.5/weather?lat='
-            + latitude + '&lon=' + longitude + '&appid=' + OpenWeatherAppKey + '&units=imperial';
-
-        $('#get-weather-btn').prop('disabled', false);
-
-        $.getJSON(queryString, function (results) {
-
-            showWeatherData(results);
-
-        }).fail(function (jqXHR) {
-            $('#error-msg').show();
-            $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
+    /**
+     * scroll to refresh下拉刷新 滚动翻页）
+     * myScroll.refresh();		need to call after load
+     */
+    function pullUpAction() {
+        console.log("pullup");
+    }
+    /*初始化加载数据*/
+    function loadData() {
+        //数据获取等待
+        $.mobile.loading("show", {
+            text: "数据加载中",
+            textVisible: true,
+            textonly: false
         });
 
-    }
-    function onGetLocationError(error) {
+        $.getJSON("json/loadContent.json", function (data) {
+            var html = template('contentlist', data)
+            $('#datalist').empty();
+            document.getElementById('datalist').innerHTML = html;
+            //需要刷新才能使用样式表
+            $('#datalist').listview('refresh');
+        }).fail(function (jqXHR) {
 
-        $('#error-msg').text('Error getting location');
-        $('#get-weather-btn').prop('disabled', false);
+        }).success(function (result) {
+            $.mobile.loading('hide');
+            //页面加载成功后，才能初始化滚动
+            initScroll();
+           
+        });
+    }
+
+    function isPassive() {
+        var supportsPassiveOption = false;
+        try {
+            addEventListener("test", null, Object.defineProperty({}, 'passive', {
+                get: function () {
+                    supportsPassiveOption = true;
+                }
+            }));
+        } catch (e) { }
+        return supportsPassiveOption;
     }
     
 } )();
