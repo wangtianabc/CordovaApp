@@ -31,7 +31,7 @@
         $("#pullDown").hide();
         $("#pullUp").hide();
 
-        loadData();
+        loadData("json/loadContent.json",1);
     });
     /*初始化滚动*/
     function initScroll() {
@@ -65,15 +65,16 @@
         } : false);
     }
     function positionJudge() {
-        if (this.y > 40) {    //判断下拉
+        if (this.y > 30 & this.y < 60) {    //判断下拉
             $("#pullDown").show();
-            $("#pullDown").text = "放开刷新页面";
             pullDownFlag = 1;
-
-        } else if (this.y < (this.maxScrollY - 40)) {   //判断上拉
+        } else if (this.y > 60) {
+            $("#pullDown").text("放开刷新页面");
+        }else if (this.y < (this.maxScrollY - 30) & this.y>(this.maxScrollY-60)) {   //判断上拉
             $("#pullUp").show();
-            $("#pullUp").text = "放开刷新页面";
             pullUpFlag = 1;
+        } else if (this.y < (this.maxScrollY - 60)) {
+             $("#pullUp").text("放开刷新页面");
         }
     }
 
@@ -94,7 +95,7 @@
      * myScroll.refresh();// need to call after load数据加载完成后，调用界面更新方法
      */
     function pullDownAction() {
-        console.log("pulldown");
+        loadData("json/refreshContent.json", 1);
     }
 
     /**
@@ -102,10 +103,10 @@
      * myScroll.refresh();		need to call after load
      */
     function pullUpAction() {
-        console.log("pullup");
+        loadData("json/refreshContent.json", 2);
     }
     /*初始化加载数据*/
-    function loadData() {
+    function loadData(url,type) {
         //数据获取等待
         $.mobile.loading("show", {
             text: "数据加载中",
@@ -113,10 +114,16 @@
             textonly: false
         });
 
-        $.getJSON("json/loadContent.json", function (data) {
+        $.getJSON(url, function (data) {
             var html = template('contentlist', data)
-            $('#datalist').empty();
-            document.getElementById('datalist').innerHTML = html;
+            if (type == 1) {
+                $('#datalist').empty();
+                $('#datalist').html(html);
+                //document.getElementById("datalist").innerHTML = html;
+            } else {
+                $('#datalist').append(html);
+                //$('ul#datalist li:last').append(html);
+            }
             //需要刷新才能使用样式表
             $('#datalist').listview('refresh');
         }).fail(function (jqXHR) {

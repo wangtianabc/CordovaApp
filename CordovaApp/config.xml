@@ -3,7 +3,7 @@
   <name>CordovaApp</name>
   <description>A Cordova Project Demo</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">wangyuncheng</author>
-  <content src="home.html" />
+  <content src="index.html" />
   <access origin="*" />
   <vs:features />
   <preference name="SplashScreen" value="screen" />

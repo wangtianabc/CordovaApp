@@ -1,0 +1,35 @@
+﻿{ "list": [
+    {
+      "date": "2017-01-07",
+      "content": [
+        {
+          "indexhtml": "index.html",
+          "imgurl": "images/cordova.png",
+          "time": "12:00",
+          "title": "习近平发表讲话",
+          "desc": "反腐取得阶段行胜利",
+          "contenttext": "下阶段任务还很艰巨！"
+        },
+        {
+          "imgurl": "images/cordova.png",
+          "time": "12:30",
+          "title": "奥巴马任期已到",
+          "desc": "韩国人民举国欢庆，奔走相告",
+          "contenttext": "金三胖对韩国表示祝贺！"
+        }
+      ]
+    },
+    {
+      "date": "2017-01-06",
+      "content": [
+        {
+          "imgurl": "images/cordova.png",
+          "time": "13:00",
+          "title": "一国两制，港人治港",
+          "desc": "港独议员获刑",
+          "contenttext": "梁振英，明确不再竞选特首"
+        }
+      ]
+    }
+  ]
+}
