@@ -2,9 +2,12 @@
 // http://go.microsoft.com/fwlink/?LinkID=397704
 // 若要在 Ripple 或 Android 设备/仿真程序中调试代码: 启用你的应用程序，设置断点，
 // 然后在 JavaScript 控制台中运行 "window.location.reload()"。
-(function () {
+//(function () {
+define(['jquery', 'jquerymobile', 'iscrollprobe', 'template'], function ($,mobile,IScroll,template) {
     "use strict";
-
+    var indexModule = {};
+    var moduleName = "index module 01";
+    var version = "1.0.0";
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
         document.addEventListener('pause', onPause.bind(this), false);
@@ -27,12 +30,15 @@
 
     var myScroll, favScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset;
     var pullDownFlag, pullUpFlag;
-    $(document).on("ready", function () {
-        $("#pullDown").hide();
-        $("#pullUp").hide();
 
-        loadData("json/loadContent.json",1);
-    });
+    var docReady = function () {
+        $(document).on("ready", function () {
+            $("#pullDown").hide();
+            $("#pullUp").hide();
+            loadData("json/loadContent.json", 1);
+        });
+    };
+    
     /*初始化滚动*/
     function initScroll() {
         pullDownEl = document.getElementById('pullDown');
@@ -88,6 +94,7 @@
             pullUpFlag = 0;
             $("#pullUp").hide();
         }
+        myScroll.on('refresh');
     }
 
     /**
@@ -147,5 +154,10 @@
         } catch (e) { }
         return supportsPassiveOption;
     }
-    
-} )();
+
+    return {
+        "moduleName": "index module 01",
+        "version":"1.0.0",
+        docReady: docReady
+    };
+});
