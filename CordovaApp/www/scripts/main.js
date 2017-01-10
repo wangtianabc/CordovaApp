@@ -8,11 +8,14 @@
         iscrollprobe: 'iscroll-probe',
         template: 'template-debug',
         domready: 'domReady',
+        url: 'url',
         index: 'index'
     },
 });
-//require(['domready'], function (doc) {
-    require(['index'], function (index) {
-        index.docReady();
+require(['domReady'], function (domReady) {
+    domReady(function () {
+        require(['index'], function (index) {
+            index.docReady();
+        });
     });
-//});
+});

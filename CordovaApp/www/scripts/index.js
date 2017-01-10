@@ -3,7 +3,7 @@
 // 若要在 Ripple 或 Android 设备/仿真程序中调试代码: 启用你的应用程序，设置断点，
 // 然后在 JavaScript 控制台中运行 "window.location.reload()"。
 //(function () {
-define(['jquery', 'jquerymobile', 'iscrollprobe', 'template'], function ($,mobile,IScroll,template) {
+define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($,mobile,IScroll,template,url) {
     "use strict";
     var indexModule = {};
     var moduleName = "index module 01";
@@ -27,18 +27,58 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template'], function ($,mobil
     function onResume() {
         // TODO: 此应用程序已重新激活。在此处还原应用程序状态。
     };
-
+    //定义滚动相关变量
     var myScroll, favScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset;
     var pullDownFlag, pullUpFlag;
+    //获取详细信息
+    var getdetail = function (id) {
+        $.mobile.changePage("#detail", { transition: "flip", changeHash: true });
+        $.getJSON("json/desc.json", function (data) {
+            var html = template('contentdesc', data)      
+            $('#contentDetail').html(html);
+        }).fail(function (jqXHR) {
 
-    var docReady = function () {
-        $(document).on("ready", function () {
-            $("#pullDown").hide();
-            $("#pullUp").hide();
-            loadData("json/loadContent.json", 1);
+        }).success(function (result) {
+
         });
+    }
+    function pageInit() {
+         $("#pullDown").hide();
+         $("#pullUp").hide();
+         loadData("json/loadContent.json", 1);
+    }
+    //文档加载
+    var docReady = function () {
+        $(document).ready(function () {
+            $("#home").on("pageload", pageInit())
+            //获取地址中的参数
+            //$('#detail').on('pageshow', function (e) {
+            //    var curUrl = $.url();
+            //    var itemid = $.url('?itemid');
+            //    var test = $.url('?test');
+            //});
+            $('.listitem').on('click', function () {
+                $.mobile.changePage("#detail", { transition: "flip", changeHash: false });
+            });
+            //$(document).on("#home", "pageinit", function () {
+            //    console.log("pageinit");
+            //$(document).on("pagebeforechange", beforechange);
+            //});
+            //function beforechange(e, data) {
+            //    if (typeof data.toPage != "string") {
+            //        var url = $.mobile.path.parseUrl(e.target.baseURI),
+            //        re = /#detail/;
+            //        if (url.href.search(re) != -1) {
+            //            var page = $(e.target).find("#detail");
+            //            var d = data.options.data;
+            //            page.find("#s").append(decodeURIComponent(d));
+            //        }
+            //    }
+            //}
+        });
+        
     };
-    
+
     /*初始化滚动*/
     function initScroll() {
         pullDownEl = document.getElementById('pullDown');
@@ -158,6 +198,7 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template'], function ($,mobil
     return {
         "moduleName": "index module 01",
         "version":"1.0.0",
-        docReady: docReady
+        docReady: docReady,
+        getdetail: getdetail
     };
 });
