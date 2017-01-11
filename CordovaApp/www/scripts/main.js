@@ -9,6 +9,7 @@
         template: 'template-debug',
         domready: 'domReady',
         url: 'url',
+        util:'util',
         index: 'index'
     },
 });
@@ -16,6 +17,7 @@ require(['domReady'], function (domReady) {
     domReady(function () {
         require(['index'], function (index) {
             index.docReady();
+            //console.log(index);
         });
     });
 });

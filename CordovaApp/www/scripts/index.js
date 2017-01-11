@@ -3,7 +3,9 @@
 // 若要在 Ripple 或 Android 设备/仿真程序中调试代码: 启用你的应用程序，设置断点，
 // 然后在 JavaScript 控制台中运行 "window.location.reload()"。
 //(function () {
-define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($,mobile,IScroll,template,url) {
+/// <reference path="jquery-1.12.4.js">
+/// <reference path="jquery.mobile-1.4.5.js">
+define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], function ($,mobile,IScroll,template,url,my_$) {
     "use strict";
     var indexModule = {};
     var moduleName = "index module 01";
@@ -18,7 +20,6 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($
         getWeatherWithGeoLocation();
 
     };
-   
     
     function onPause() {
         // TODO: 此应用程序已挂起。在此处保存应用程序状态。
@@ -42,7 +43,7 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($
 
         });
     }
-
+    
     function pageInit() {
          $("#pullDown").hide();
          $("#pullUp").hide();
@@ -51,16 +52,22 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($
     //文档加载
     var docReady = function () {
         $(document).ready(function () {
-            $("#home").on("pageload", pageInit())
+            $("#home").on("pageload", pageInit());
+
+            //自定义命名空间函数调用
+            //var myns = new my_$()
+            //myns.objectfunc();//实例方法
+            my_$.staticfunc();//静态方法
+
             //获取地址中的参数
             //$('#detail').on('pageshow', function (e) {
             //    var curUrl = $.url();
             //    var itemid = $.url('?itemid');
             //    var test = $.url('?test');
             //});
-            $('.listitem').on('click', function () {
-                $.mobile.changePage("#detail", { transition: "flip", changeHash: false });
-            });
+            //$('.listitem').on('click', function () {
+            //    $.mobile.changePage("#detail", { transition: "flip", changeHash: false });
+            //});
             //$(document).on("#home", "pageinit", function () {
             //    console.log("pageinit");
             //$(document).on("pagebeforechange", beforechange);
@@ -202,4 +209,6 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($
         docReady: docReady,
         getdetail: getdetail
     };
+
+    $
 });
