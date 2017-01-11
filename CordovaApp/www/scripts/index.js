@@ -42,6 +42,7 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url'], function ($
 
         });
     }
+
     function pageInit() {
          $("#pullDown").hide();
          $("#pullUp").hide();
