@@ -33,7 +33,7 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], func
     var pullDownFlag, pullUpFlag;
     //获取详细信息
     var getdetail = function (id) {
-        $.mobile.changePage("#detail", { transition: "flip", changeHash: true });
+        $.mobile.changePage("#detail", { transition: "fade", changeHash: true });
         $.getJSON("json/desc.json", function (data) {
             var html = template('contentdesc', data)      
             $('#contentDetail').html(html);
@@ -44,20 +44,49 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], func
         });
     }
     
-    function pageInit() {
-         $("#pullDown").hide();
-         $("#pullUp").hide();
-         loadData("json/loadContent.json", 1);
+    //加载底部菜单
+    function createFooter(page, id) {
+        var footerUrl = page.attr("data-footer");
+        if (footerUrl) {
+            var footerHtml = '';
+            if (!footerHtml) {
+                footerHtml = my_$.loadContent(footerUrl,"GET","html");
+                my_$.setItem(footerUrl, footerHtml);
+            }
+            page.append(footerHtml);
+        }
     }
+    
+    //首页加载
+    function pageHomeInit() {
+        var pageId = $('#home').attr('id');
+        createFooter($('#home'), pageId);
+        $.mobile.pageContainer.trigger('create');
+
+        $("#pullDown").hide();
+        $("#pullUp").hide();
+        loadData("json/loadContent.json", 1);
+    }
+
+    //用户信息加载
+    function pageUserInit() {
+        var pageId = $('#user').attr('id');
+        createFooter($('#user'), pageId);
+        $.mobile.pageContainer.trigger('create');
+    }
+
     //文档加载
     var docReady = function () {
         $(document).ready(function () {
-            $("#home").on("pageload", pageInit());
+            $('#home').on('pageload', pageHomeInit());
+            $('#user').on('pageload', pageUserInit());
 
             //自定义命名空间函数调用
-            //var myns = new my_$()
-            //myns.objectfunc();//实例方法
+            var myns = new my_$()
+            myns.objectfunc();//实例方法
             my_$.staticfunc();//静态方法
+
+            
 
             //获取地址中的参数
             //$('#detail').on('pageshow', function (e) {
@@ -210,5 +239,4 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], func
         getdetail: getdetail
     };
 
-    $
 });

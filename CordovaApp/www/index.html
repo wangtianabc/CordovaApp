@@ -17,7 +17,7 @@
 </head>
 <body>
     <!--主页-->
-    <div data-role="page" id="home">
+    <div data-role="page" id="home" data-footer="common/footer.html">
         <div data-role="header" data-position="fixed">
             <h1>CordovaApp</h1>
             <a href="#" class="ui-btn ui-btn-right ui-btn-corner-all ui-icon-gear ui-btn-icon-notext" data-transition="slideup" id="test"></a>
@@ -36,17 +36,6 @@
                     </div>
                 </div>
             </div>
-            
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="index.html" data-icon="info">消息</a></li>
-                    <li><a href="#" data-icon="home">主页</a></li>
-                    <li><a href="#" data-icon="eye">发现</a></li>
-                    <li><a href="#" data-icon="user">用户</a></li>
-                </ul>
-            </div>
         </div>
     </div>    
     <div data-role="page" id="detail">
@@ -56,6 +45,30 @@
         </div>
         <div data-role="content" id="contentDetail">
 
+        </div>
+    </div>
+    <div data-role="page" id="user" data-footer="common/footer.html">
+        <div data-role="header" data-position="fixed">
+            <h1>用户信息</h1>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                <li>
+                    <a href="#">
+                        <img src="images/cordova.png">
+                        <h2>孩子爸爸：张三</h2>
+                        <p>账号：123456789</p>
+                    </a>
+                </li>
+                <li data-role="list-divider"></li>
+                <li><a href="#">我的二维码</a></li>
+                <li><a href="#">邀请家人</a></li>
+                <li><a href="#">土宝卡号</a></li>
+                <li><a href="#">我的关注</a></li>
+                <li data-role="list-divider"></li>
+                <li><a href="#">帮助与反馈</a></li>
+                <li><a href="#">设置</a></li>
+            </ul>
         </div>
     </div>
     <!--<script src="scripts/jquery-1.12.4.min.js"></script>

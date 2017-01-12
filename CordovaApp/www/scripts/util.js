@@ -6,9 +6,20 @@
     core_version = "0.0.1";
 
     var my_Util = (function () {
+        //sessionStorage缓存
+        var localStorage = {
+            setItem: function (key, value) {
+                sessionStorage.setItem(key, value)
+            },
+            getItem: function (key) {
+                return sessionStorage.getItem(key)
+            }
+        }
+
         var my_Util = function () {
             return new my_Util.prototype.init();
         }
+
         my_Util.fn = my_Util.prototype = {
             my_Util: core_version,
             constructor: my_Util,
@@ -18,7 +29,7 @@
             },
             //实例方法添加处
             objectfunc: function () {
-                console.log("实例方法");
+                console.log(core_version);
             }
         }
 
@@ -113,10 +124,38 @@
         }
 
         my_Util.extend({
-            //静态方法
+            //静态方法测试
             staticfunc: function () {
                 console.log($.fn.jquery);
+            },
+            //获取数据
+            loadContent: function (url,type,datatype) {
+                var content = "";
+                $.ajax({
+                    url: url,
+                    type: type,
+                    dataType: datatype,
+                    async: false,
+                    success: function (data, textStatus, xhr) {
+                        content = data;
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        content = "";
+                    }
+                });
+                return content;
+            },
+
+            setItem: function (key, value) {
+                sessionStorage.setItem(key, value)
+            },
+
+            getItem: function (key) {
+                return sessionStorage.getItem(key)
             }
+          
+                
+            
 
         })
 
