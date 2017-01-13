@@ -45,23 +45,23 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], func
     }
     
     //加载底部菜单
-    function createFooter(page, id) {
-        var footerUrl = page.attr("data-footer");
-        if (footerUrl) {
-            var footerHtml = '';
-            if (!footerHtml) {
-                footerHtml = my_$.loadContent(footerUrl,"GET","html");
-                my_$.setItem(footerUrl, footerHtml);
-            }
-            page.append(footerHtml);
-        }
-    }
+    //function createFooter(page, id) {
+    //    var footerUrl = page.attr("data-footer");
+    //    if (footerUrl) {
+    //        var footerHtml = '';
+    //        if (!footerHtml) {
+    //            footerHtml = my_$.loadContent(footerUrl,"GET","html");
+    //            my_$.setItem(footerUrl, footerHtml);
+    //        }
+    //        page.append(footerHtml);
+    //    }
+    //}
     
     //首页加载
     function pageHomeInit() {
-        var pageId = $('#home').attr('id');
-        createFooter($('#home'), pageId);
-        $.mobile.pageContainer.trigger('create');
+        //var pageId = $('#home').attr('id');
+        //createFooter($('#home'), pageId);
+        //$.mobile.pageContainer.trigger('create');
 
         $("#pullDown").hide();
         $("#pullUp").hide();
@@ -69,17 +69,22 @@ define(['jquery', 'jquerymobile', 'iscrollprobe', 'template','url','util'], func
     }
 
     //用户信息加载
-    function pageUserInit() {
-        var pageId = $('#user').attr('id');
-        createFooter($('#user'), pageId);
-        $.mobile.pageContainer.trigger('create');
+    //function pageUserInit() {
+    //    var pageId = $('#user').attr('id');
+    //    createFooter($('#user'), pageId);
+    //    $.mobile.pageContainer.trigger('create');
+    //}
+    function pageMainInit() {
+        $('#mail').on('click', function () {
+            console.log("bind success");
+        })
     }
-
     //文档加载
     var docReady = function () {
         $(document).ready(function () {
             $('#home').on('pageload', pageHomeInit());
-            $('#user').on('pageload', pageUserInit());
+            $('#main').on('pageload', pageMainInit());
+            //$('#user').on('pageload', pageUserInit());
 
             //自定义命名空间函数调用
             var myns = new my_$()

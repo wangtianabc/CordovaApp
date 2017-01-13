@@ -12,12 +12,14 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="css/scrollbar.css">
+    <link rel="stylesheet" href="css/jquery.mobile.icons-1.4.5.min.css"/>
+    <link rel="stylesheet" href="css/scrollbar.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <title>CordovaApp</title>
 </head>
 <body>
     <!--主页-->
-    <div data-role="page" id="home" data-footer="common/footer.html">
+    <div data-role="page" id="home">
         <div data-role="header" data-position="fixed">
             <h1>CordovaApp</h1>
             <a href="#" class="ui-btn ui-btn-right ui-btn-corner-all ui-icon-gear ui-btn-icon-notext" data-transition="slideup" id="test"></a>
@@ -37,7 +39,18 @@
                 </div>
             </div>
         </div>
-    </div>    
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home" data-icon="info">消息</a></li>
+                    <li><a href="#main" data-icon="home">主页</a></li>
+                    <li><a href="#" data-icon="eye">发现</a></li>
+                    <li><a href="#user" data-icon="user">用户</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--详细信息页-->
     <div data-role="page" id="detail">
         <div data-role="header" data-position="fixed">
             <a data-rel="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-icon-notext">Cancel</a>
@@ -47,7 +60,8 @@
 
         </div>
     </div>
-    <div data-role="page" id="user" data-footer="common/footer.html">
+    <!--用户信息页-->
+    <div data-role="page" id="user">
         <div data-role="header" data-position="fixed">
             <h1>用户信息</h1>
         </div>
@@ -61,14 +75,53 @@
                     </a>
                 </li>
                 <li data-role="list-divider"></li>
-                <li><a href="#">我的二维码</a></li>
-                <li><a href="#">邀请家人</a></li>
-                <li><a href="#">土宝卡号</a></li>
-                <li><a href="#">我的关注</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">我的二维码</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">邀请家人</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">土宝卡号</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">我的关注</a></li>
                 <li data-role="list-divider"></li>
-                <li><a href="#">帮助与反馈</a></li>
-                <li><a href="#">设置</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">帮助与反馈</a></li>
+                <li><a href="#"><img src="images/fi.png" alt="France" class="ui-li-icon ui-corner-none">设置</a></li>
             </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home" data-icon="info">消息</a></li>
+                    <li><a href="#main" data-icon="home">主页</a></li>
+                    <li><a href="#" data-icon="eye">发现</a></li>
+                    <li><a href="#user" data-icon="user">用户</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--grid页-->
+    <div data-role="page" id="main">
+        <div data-role="header" data-position="fixed">
+            <h1>主要功能</h1>
+        </div>
+        <div data-role="content">
+            <div style="width:100%;">
+                <img style="width:100%" src="images/main.png"/>
+            </div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a" style="height:80px"><div class="gridbutton bg-1" id="mail"><a class="ui-btn ui-icon-mail ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>邮件</label></div>
+                <div class="ui-block-b" style="height:80px"><div class="gridbutton bg-2"><a class="ui-btn ui-icon-calendar ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>日历</label></div>
+                <div class="ui-block-c" style="height:80px"><div class="gridbutton bg-3"><a class="ui-btn ui-icon-camera ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>相机</label></div>
+                <div class="ui-block-d" style="height:80px"><div class="gridbutton bg-4"><a class="ui-btn ui-icon-clock ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>提醒</label></div>
+                <div class="ui-block-a" style="height:80px"><div class="gridbutton bg-5"><a class="ui-btn ui-icon-phone ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>电话</label></div>
+                <div class="ui-block-b" style="height:80px"><div class="gridbutton bg-6"><a class="ui-btn ui-icon-search ui-corner-all ui-btn-icon-notext gridicon"></a></div><label>搜索</label></div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home" data-icon="info">消息</a></li>
+                    <li><a href="#main" data-icon="home">主页</a></li>
+                    <li><a href="#" data-icon="eye">发现</a></li>
+                    <li><a href="#user" data-icon="user">用户</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <!--<script src="scripts/jquery-1.12.4.min.js"></script>
